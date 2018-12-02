@@ -1,0 +1,108 @@
+/* ID'S */
+#note{height: 200px;}
+#addassocBtn, #displayJobList, #contactTable, #jobnotetable, #hoursTable {margin: 10px 0 0 0;}
+
+/* CLASSES */
+.popover-title{background: #F00; color: #FFF;}
+.glyphicon-exclamation-sign{color: #F00; font-size: 14px;}
+.error {margin: 0 0 0 5px;}
+
+/* MESSAGE BOX */
+#msgbox{background: rgba(0, 0, 0, .5); position: absolute; width: 100%; height: 100%; font-family: sans-serif; display: none;z-index: 1000;}
+#msgbox .box {width: 400px; border-radius: 5px; margin: 50px auto;}
+#msgbox .box .heading {background: blue; color: white; border-radius: 5px 5px 0 0; font-size: 20px; padding: 5px;}
+#msgbox .box .body {background: #FFF; position: relative; border-radius: 0 0 5px 5px; min-height: 100px; font-size: 16px; padding: 15px 8px 50px 8px;}
+#msgbox .box .body .btns {margin: 10px 0 0 0; overflow: auto; position: absolute; right: 5px; bottom: 5px;}
+#msgbox .box .body .btns input{float: right; padding: 6px 12px; font-size: 14px; font-weight: 400; line-height: 1.42857143; text-align: center; white-space: nowrap; vertical-align: middle; -ms-touch-action: manipulation; touch-action: manipulation; cursor: pointer; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; background-image: none; border: 1px solid transparent; border-radius: 4px; background: #286090; color: #FFF; outline: none; display: none;}
+#msgbox .box .body #leftbtn{margin: 0 5px 0 0;}
+
+/* UPDATE NOTE AND HOURS FORM */
+#updateNoteForm, #updateHoursForm{
+	display: none;
+	border: 1px solid black;
+	padding: 10px;
+	border-radius: 5px;
+	width: 600px;
+	position: absolute;
+	top: 100px;
+	left: 50%;
+	margin-left: -300px;
+	background: #FFF;
+	z-index: 1000;
+	box-shadow: 10px 10px 2px rgba(0, 0, 0, .2)
+}
+
+
+
+
+/* HEADER */
+header {
+    background: green
+}
+header h1 {
+    padding: 0 15px;
+    color: #FFF;
+}
+
+/* NAVIGATON */
+#mainnav {
+    background: #CCC;
+}
+#mainnav .col-md-12, #mainname .col-sm-12 {
+    padding: 0;
+}
+
+/* MAIN */
+main .form {
+	margin-top: 20px
+}
+
+main #ack {
+	width: 400px;
+	position: absolute;
+	left: 50%;
+	margin-left: -200px;
+	display: none;
+    box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, .30);
+    z-index: 200;
+}
+
+main #ackheading {
+	color: #FFF;
+	font-weight: bold;
+}
+
+main #ack #buttons {
+	margin-top: 15px;
+}
+
+main #ack #buttons input{
+	margin-right: 10px;
+}
+
+main #addjobform, main #addassetform, main #addjobassetform, main #addhoursform, main #invoiceForm, main #addjobnoteform {
+	display: none;
+}
+
+main #acclst, main #jblst, main #viewdelassetstable, main #invoiceForm{
+	margin: 10px 0;
+}
+
+main #description {
+	width: 100%;
+	height: 200px;
+}
+
+main #accountinfo {
+	border: 1px solid blue;
+	padding: 10px;
+	margin: 10px 0;
+	box-shadow: rgba(0, 0, 0, .3) 5px 5px 2px;
+	border-radius: 5px
+}
+
+main #accountinfo address {
+	font-size: 1.4em
+}
+
+

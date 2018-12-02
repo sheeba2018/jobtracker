@@ -1,0 +1,2 @@
+April-26-2017 at 08:31:54 - ERROR! SQLSTATE[22003]: Numeric value out of range: 1264 Out of range value for column 'note_date' at row 1
+April-26-2017 at 08:32:18 - ERROR! SQLSTATE[22003]: Numeric value out of range: 1264 Out of range value for column 'note_date' at row 1

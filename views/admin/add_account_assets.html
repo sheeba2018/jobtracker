@@ -1,0 +1,46 @@
+<main class="container" id="addaccountasset">
+<div class="row">
+   <div class="col-md-12" style="position: relative;">
+      <div class="panel panel-default" id="ack">
+          <div class="panel-heading" id="ackheading"></div>
+          <div class="panel-body" id="ackbody"></div>
+      </div>
+   </div>
+</div>
+  <div class="row">
+      <div class="col-md-6">
+          <h2>Add Account Assets</h2>
+          <p>Please select an account name.</p>
+          <!-- I USED AJAX TO CALL THE SERVER AND GET THIS LIST.  I COULD HAVE AS WELL WRITTEN A PHP FUNCTION THAT WOULD HAVE POPULATED THIS AREA ON PAGE LOAD.  I CHOOSE TO USE THE AJAX METHOD INSTEAD.  DOWNSIDE IS IF JAVASCRIPT IS NOT ENABLED THEN IT WILL NOT WORK, BUT IN THE INSTANCE OF THIS WEBSITE WITHOUT JAVASCRIPT NONE OF IT WILL WORK   -->
+            <div id="accountlist"></div>
+            
+       </div>
+  </div>
+  
+  <div id="addassetform" class="form">
+      <div class="row">    
+        <div class="col-md-6">
+        <div class="form-group">
+          <label for="name">Asset Name:</label>
+          <input type="text" class="form-control" id="name" name="name" value="Account Asset">
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="file">Asset File:</label>
+          <input type="file" class="form-control" name="file" id="file">
+        </div>
+      </div>
+    </div>
+  
+  <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <input type="button" class="btn btn-success" name="addaccountassetBtn" id="addaccountassetBtn" value="Add Asset To Account">
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
