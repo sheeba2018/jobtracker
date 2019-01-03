@@ -63,3 +63,9 @@ error_log("hello how r u doing");
     
 
 }
+
+ /*switch($dataObj->flag){
+	
+	case 'gethoursupdateform' : require_once '../controller/job.php'; updateName($dataObj); break;
+        case 'deletehours': require '../controller/job.php';deleteName($dataObj);break;
+}*/

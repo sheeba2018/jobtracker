@@ -1,5 +1,4 @@
 
-
 "use strict";
 var jb = {}
 
@@ -631,7 +630,7 @@ jb.getInvoice = function(){
 		data.begdate = new Date(Util.getEl('#begdate')[0].value.replace(/-/g,',')).getTime();
 		data.enddate = new Date(Util.getEl('#enddate')[0].value.replace(/-/g,',')).getTime();
 
-		window.open("http://198.211.114.100/job_tracker_studemt_version/invoice.php?id="+data.id+"&begdate="+data.begdate+"&enddate="+data.enddate, '_blank');
+		window.open("http://198.211.114.100/job_tracker_student_version_php/invoice.php?id="+data.id+"&begdate="+data.begdate+"&enddate="+data.enddate, '_blank');
 
 	}
 }

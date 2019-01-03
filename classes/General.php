@@ -6,6 +6,7 @@ class General {
 		session_start();
 		If($_SESSION['access'] != "approved"){
 			header( 'Location: /var/www/html/job_tracker_student_version_php') ;
+                        //header("Location: http://198.211.114.100/job_tracker_student_version/printinvoice/");
 
 		}
 	}

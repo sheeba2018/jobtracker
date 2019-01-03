@@ -1,4 +1,5 @@
 
+
 <?php
 
 /* ALL GET PAGE FUNCTIONS HERE */
@@ -123,7 +124,7 @@ function addContact($dataObj) {
                 if ($result == 'noerror') {
                     $response = (object) [
                                 'masterstatus' => 'success',
-                                'msg' => 'Thecontact has been added',
+                                'msg' => 'The contact has been added',
                     ];
                     echo json_encode($response);
                 } else {
@@ -196,7 +197,7 @@ function updateContact($dataObj) {
             if (count($result) != 0) {
                 $response = (object) [
                             'masterstatus' => 'error',
-                            'msg' => 'There is already an conatct by that name',
+                            'msg' => 'There is already an conatct by that email',
                 ];
                 echo json_encode($response);
             } else {
@@ -206,9 +207,10 @@ function updateContact($dataObj) {
                 /* CREATE BINDINGS NEEDED FOR PDO QUERY.  I CREATED A METHOD IN THE GENERAL CLASS THAT DOES THIS AUTOMATICALLY BY SENDING IN THE ELEMENTNAMES ARRAY AND THE DATAOBJ.  FOR THIS TO WORK YOU JUST HAVE THE CORRECT DATAOBJ STRUCTURE */
                 $bindings = $General->createBindedArray($elementNames, $dataObj);
                 /* ADD THE ACCOUNTID TO THE BINDINGS ARRAY */
-                array_push($bindings, array(':contactId', $dataObj->contactId, 'int'));
+               
                 /* CREATE SQL STATEMENT AND ADD BINDINGS */
                 $sql = "UPDATE contact SET name=:name, work_phone=:workphone, mobile_phone=:mobilephone, email=:email WHERE id=:contactId";
+                 array_push($bindings, array(':contactId', $dataObj->contactId, 'int'));
                 $result = $pdo->otherBinded($sql, $bindings);
                 if ($result = 'noerror') {
                     $object = (object) [
@@ -327,11 +329,11 @@ function mcInterface($dataObj){
     //$name1="bob";
     $name=$records[0]['name'];
     
-   $associations = getAssocTable($dataObj);
+   //$associations = getAssocTable($dataObj);
      
     
     
-    $accounts=getAllAccounts();
+   $accounts=getAllAccounts();
       
     
             $object = (object) [
@@ -376,59 +378,61 @@ function getAllAccounts() {
 
 /* this is orginal table  working*/
 function getAssocTable($dataObj){
-          
+    
+     
+    
     require_once '../classes/Pdo_methods.php';
-    $pdo = new PdoMethods();
-        if (count($records1) != 0) {
-            $sql = 'select * from job_contact where contact_id=:id';
-            $bindings = array(
-                array(':contId', $dataObj->contId, 'int'),
-               
-            );
+    
+	$pdo = new PdoMethods();
         
-            $records = $pdo->selectBinded($sql, $bindings);
-            
-            //check count here and check $table
-            if (count($records) == 0) {
-                 print_r("php testing");
-                  $associations = '<p> there is no assocition added </p>';
-            }
-                                                              
-            else {
-                   $associations='<table class="table table-bordered table-striped" id="table">'
-                       . '<thead><tr><th>Account Name</th><th>Job</th><th>Delete</th></tr></thead>';
          
-                     
-                 foreach ($records1 as $row) {
-                  
-                     $sql = "SELECT account.name AS accountname, job.name AS jobname, job.id AS jobid, account.id AS accountid  FROM account, job, job_contact WHERE account.id = job_contact.account_id AND job.id = job_contact.job_id AND job_contact.contact_id = :id";
-                    $bindings = array(
-                        
-                        array(':acctid', $row['account_id'], 'int'),
-                        array(':jobid', $row['job_id'], 'int'),
-                    );
-                    $records2 = $pdo->selectBinded($sql, $bindings);
-                    for ($i = 0; $i < count($records2); $i++) {
-                        $associations .= '<tr>
-                           <td>' . $records2[$i][0] . '</td>
-                           <td>' . $records2[$i][1] . '</td>
-                           <td><button id="'.$row['account_id'].'&&&'.$row['job_id'].'" >Delete</button></td>
-                        </tr>';
-                    }
-                }
-         print_r("php testing");
-                  $associations .= ' </tbody></table>';
-                  echo $association;
-            }
-           
-                
-            
-           // echo $table;
         
+        $sql = "SELECT account.name AS accountname, job.name AS jobname, job.id AS jobid, account.id AS accountid  FROM account, job, job_contact WHERE account.id = job_contact.account_id AND job.id = job_contact.job_id AND job_contact.contact_id = :id";
+        
+       // return $dataObj->contId;
+        
+        $bindings = array(
+            array(':id', $dataObj->contId, 'int'),
+        );
+            //$sql = "SELECT id, name FROM contact where id=id";
+        
+        
+	$records = $pdo->selectBinded($sql, $bindings);
+        
+        //return $records;
+        
+        
+        
+	if($records == 'error'){
+            echo 'There has been and error processing your request';
         }
-        return $associations;
-         
-        }
+    /* IF EMAIL AND PASSWORD EXIST THEN ALLOW ACCESS */
+    else {
+    	if(count($records) != 0){
+        
+            $associations = '<table class="table table-bordered table-striped" id="table">';
+                $associations .= '<thead><tr><th>Account Name</th><th>Job</th><th>Delete</th></tr></thead><tbody>';
+        	/*foreach ($records as $row) {
+        		$associations .= "<tr><td style='width: 25%'>".$row['accountname']."</td>";
+                        $associations .= "<tr><td style='width: 25%'>".$row['jobname']."</td>";
+                        $associations.= "<td style='width: 25%'><input type='button' class='btn btn-danger' value='Delete' id='".$row['jobid'].'&&&'.$row['accountid']."'></td></tr>";
+        	}*/
+                foreach ($records as $row) {
+        		$associations .= "<tr><td style='width: 25%'>".$row['accountname']."</td>"
+                        . "<td style='width: 25%'>".$row['jobname']."</td>"
+                        . "<td style='width: 25%'><input type='button' class='btn btn-danger' value='Delete' id='".$row['jobid'].'&&&'.$row['accountid']."'></td></tr>";
+        	}
+        	$associations .= '</tbody></table>';
+        	//echo $associations;
+	    }
+	    else {
+	    echo 'No Association  was found';
+	    }
+    }
+     return $associations;
+     
+}
+
 
 
   
@@ -436,33 +440,48 @@ function addAssoc($dataObj){
     //take the contact id, job id, account id and insert them into the job_contact table;
     //call getAssocTable and send the returned table back as a string.
     //make sure you create the correct object based upon the javascript
-   echo "test";
-    //print_r("error log here");
-   require_once '../classes/Pdo_methods.php';
-		$pdo = new PdoMethods();
-		/* GET THE FOLDER PATH FROM THE ACCOUNT DATABASE */
-		$sql = "SELECT  FROM job_contact WHERE id = :id";
-		/* SINCE THERE IS ONLY ONE BINDING I DID NOT  NEED TO USE THE GENERAL CLASS*/
-		$bindings = array(
-			array(':id',$dataObj->id,'int'),
-		);
-		
-		$sql = "INSERT INTO job_contact (account_id,job_id,contact_id) VALUES (acctId, jobId, contId)";
-                
-                getAssocTable($dataObj);
-                echo"sheebaesting";
-                //return '$associations';
-               // print_r("hello how r u");
-          
+    require_once '../classes/Pdo_methods.php';
+    $pdo = new PdoMethods();
+    
+   
+  $sql = "INSERT INTO job_contact (account_id,job_id,contact_id) VALUES (:acctId, :jobId, :contId)";
+  
+  $associations = getAssocTable($dataObj);
+  
+    
+    $bindings = array(
+       
+       array(':acctId', $dataObj->acctId, 'int'),
+        array(':jobId', $dataObj->jobId, 'int'),
+        array(':contId', $dataObj->contId, 'int'),
+    );
+    $result = $pdo->otherBinded($sql, $bindings);
+    if ($result == 'noerror') {
+        $object = (object) [
+                    'masterstatus' => 'success',
+                    'associations' => $associations
+        ];
+        echo json_encode($object);
+    } else {
+        $object = (object) [
+                    'masterstatus' => 'error',
+                    'msg' => 'There was an error adding the asset'
+        ];
+        echo json_encode($object);
+           
+    }
+    //return  $associations;
+}
+	
+                  
              
 		
-}
 
      
 function contactTable(){
 	require '../classes/Pdo_methods.php';
 	$pdo = new PdoMethods();
-	$sql = "SELECT id, name FROM contact";
+	$sql = "SELECT id, name FROM contact where id=id";
 	$records = $pdo->selectNotBinded($sql);
 	if($records == 'error'){
     	echo 'There has been and error processing your request';
@@ -470,7 +489,8 @@ function contactTable(){
     /* IF EMAIL AND PASSWORD EXIST THEN ALLOW ACCESS */
     else {
     	if(count($records) != 0){
-        	$contacts = '<table class="table table-bordered table-striped" id="contacttable">';
+        	$contacts = '<table class="table table-bordered table-striped" id="contTable">';
+                //$contacts = '<table class="table table-bordered table-striped" id="contacttable">';
         	$contacts .= '<thead><tr><th>Contact  Name</th><th>Delete</th></tr></thead><tbody>';
         	foreach ($records as $row) {
         		$contacts .= "<tr><td style='width: 90%'>".$row['name']."</td>";
@@ -494,6 +514,9 @@ function contactTable(){
 
 /* THIS FUNCTION WILL DELETE THE NAME AND OTHE INFORMATION FOR THE ROW THAT WAS CLICKED */
 function  deleteContact($dataObj){
+    
+	require_once '../classes/Pdo_methods.php';
+	
 	$pdo = new PdoMethods();
 	$sql = "DELETE FROM contact WHERE id = :id";
 	$bindings = array(
@@ -507,14 +530,20 @@ function  deleteContact($dataObj){
 		];
 		echo json_encode($response);
 	}
-	else {
-		$response = (object) [
+	else{
+	/*	$response = (object) [
 	    	'masterstatus' => 'success',
-	    	'specificaction' => 'reloadpage',
+	    	//'specificaction' => 'reloadpage',
 		];
-		echo json_encode($response);
-	}
-
+		echo json_encode($response);*/
+	
+        $object = (object) [
+			'masterstatus' => 'success',
+			'msg' => 'Record Deleted'
+		];
+		echo json_encode($object);
+	
+        }
 }
 
 

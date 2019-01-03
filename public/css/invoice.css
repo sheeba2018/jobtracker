@@ -5,8 +5,8 @@ body {font: 100%/1.5 sans-serif;}
 #wrapper {width: 1024px; margin: 0 auto; border: black}
 
 address{font-style: normal;}
-
-header{background: rgb(54, 147, 78); padding: 10px; position: relative; border-bottom: 6px solid black;}
+header{background: rgb(54, 147, 78); padding: 10px; position: relative; border-bottom: 6px solid black; height: 100px;}
+/*header{background: rgb(54, 147, 78); padding: 10px; position: relative; border-bottom: 6px solid black;}*/
 header #logo{height: 120px;width: 120px; background: url(../../public/images/sewhitelogo300x320.png)no-repeat; background-size: 120px}
 header #se{position: absolute; top: 10px; left: 150px}
 header h2{font-size:1.8em}

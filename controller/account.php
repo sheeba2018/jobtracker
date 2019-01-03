@@ -125,6 +125,7 @@ function addAccount($dataObj){
 						];
 						echo json_encode($response);
 					}
+                                        
 					else {
 						$response = (object) [
 					    	'masterstatus' => 'error',
@@ -328,6 +329,10 @@ function updateAccount($dataObj){
 		
 	}
 }
+
+
+/* Uodate AccountTable ***********/
+
 function accountTable(){
 	require '../classes/Pdo_methods.php';
 	$pdo = new PdoMethods();

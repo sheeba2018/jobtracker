@@ -340,12 +340,12 @@ cont.addAssoc = function(){
 	}
 	else {
 		data = JSON.stringify(data);
-                console.log(data);
+                //console.log(data);
 
 		Util.sendRequest('../xhr/routes.php', function(res){
-			//var response = JSON.parse(res.responseText);
-                        console.log(res.responseText);
-                        return;
+			var response = JSON.parse(res.responseText);
+                        //console.log(res.responseText);
+                        //return;
 			
 			if(response.masterstatus === 'success'){
 				Util.getEl('#table')[0].innerHTML = response.associations;
